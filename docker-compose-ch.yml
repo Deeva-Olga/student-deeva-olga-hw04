@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    container_name: ch_local
+    ports:
+      - "8123:8123"   # HTTP интерфейс
+      - "9000:9000"   # Native протокол
+    volumes:
+      - ch_data:/var/lib/clickhouse
+      - ch_logs:/var/log/clickhouse-server
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+volumes:
+  ch_data:
+  ch_logs:
